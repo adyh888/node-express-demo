@@ -94,6 +94,9 @@ router.get('/:id', async function (req, res, next) {
 router.post('/', async function (req, res, next) {
   try {
     const data = filterBody(req)
+
+    // 获取当前登录的用户 ID
+    data.userId = req.user.id
     const coursesRes = await Course.create(data)
     success(res, '课程创建成功', coursesRes, 201)
   } catch (e) {
@@ -167,7 +170,7 @@ getCourse = async req => {
 const filterBody = req => {
   return {
     categoryId: req.body.categoryId,
-    userId: req.body.userId,
+    // userId: req.body.userId,
     name: req.body.name,
     image: req.body.image,
     recommended: req.body.recommended,
